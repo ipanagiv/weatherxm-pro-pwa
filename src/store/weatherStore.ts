@@ -10,12 +10,14 @@ export interface FavoriteLocation extends Location {
 
 interface WeatherState {
   selectedLocation: Location | null;
+  selectedStation: WeatherXMStation | null;
   weatherData: WeatherData | null;
   stations: WeatherXMStation[];
   isLoading: boolean;
   error: string | null;
   favorites: FavoriteLocation[];
   setSelectedLocation: (location: Location | null) => void;
+  setSelectedStation: (station: WeatherXMStation | null) => void;
   setWeatherData: (data: WeatherData | null) => void;
   setLoading: (loading: boolean) => void;
   setError: (error: string | null) => void;
@@ -29,6 +31,7 @@ export const useWeatherStore = create<WeatherState>()(
   persist(
     (set, get) => ({
       selectedLocation: null,
+      selectedStation: null,
       weatherData: null,
       stations: [],
       isLoading: false,
@@ -39,6 +42,9 @@ export const useWeatherStore = create<WeatherState>()(
         if (location) {
           get().fetchStations();
         }
+      },
+      setSelectedStation: (station) => {
+        set({ selectedStation: station });
       },
       setWeatherData: (data) => set({ weatherData: data }),
       setLoading: (loading) => set({ isLoading: loading }),

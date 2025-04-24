@@ -5,7 +5,16 @@ import { useSettingsStore } from '../store/settingsStore';
 import { calculateDistance } from '../types/weather';
 
 const WeatherDisplay: React.FC = () => {
-  const { selectedLocation, weatherData, setWeatherData, setError, setLoading, isLoading, error } = useWeatherStore();
+  const { 
+    selectedLocation, 
+    weatherData, 
+    setWeatherData, 
+    setError, 
+    setLoading, 
+    isLoading, 
+    error,
+    setSelectedStation: setStoreSelectedStation
+  } = useWeatherStore();
   const { apiKey } = useSettingsStore();
   const [stations, setStations] = useState<WeatherXMStation[]>([]);
   const [selectedStation, setSelectedStation] = useState<WeatherXMStation | null>(null);
@@ -21,8 +30,10 @@ const WeatherDisplay: React.FC = () => {
         setStations(nearbyStations);
         
         if (nearbyStations.length > 0) {
-          setSelectedStation(nearbyStations[0]);
-          const data = await fetchWeatherData(nearbyStations[0]);
+          const firstStation = nearbyStations[0];
+          setSelectedStation(firstStation);
+          setStoreSelectedStation(firstStation);
+          const data = await fetchWeatherData(firstStation);
           setWeatherData(data);
         } else {
           setError('No high-quality weather stations found in your area');
@@ -43,6 +54,7 @@ const WeatherDisplay: React.FC = () => {
       setLoading(true);
       setError(null);
       setSelectedStation(station);
+      setStoreSelectedStation(station);
       const data = await fetchWeatherData(station);
       setWeatherData(data);
     } catch (err) {
@@ -119,14 +131,6 @@ const WeatherDisplay: React.FC = () => {
                   <span className="text-sm text-green-600 font-semibold">
                     Quality: 100%
                   </span>
-                </div>
-                <div className="text-sm text-gray-600">
-                  Distance: {calculateDistance(
-                    selectedLocation.lat,
-                    selectedLocation.lng,
-                    station.lat,
-                    station.lon
-                  ).toFixed(1)} km
                 </div>
               </div>
             ))}

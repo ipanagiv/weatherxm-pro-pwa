@@ -9,10 +9,13 @@ import { LocationSearch } from './components/LocationSearch'
 import { useWeatherStore } from './store/weatherStore'
 import { ApiKeyModal } from './components/ApiKeyModal'
 import { BurgerMenu } from './components/BurgerMenu'
+import { Forecast } from './components/Forecast'
+import { useState } from 'react'
 
 function App() {
   const { apiKey } = useSettingsStore();
   const { setSelectedLocation } = useWeatherStore();
+  const [activeTab, setActiveTab] = useState<'weather' | 'forecast'>('weather');
 
   const handleLocationSelect = (lat: number, lng: number) => {
     setSelectedLocation({ lat, lng });
@@ -52,26 +55,59 @@ function App() {
         ) : (
           // Show main content when API key is present
           <>
-            {/* Weather Display Area */}
-            <div className="mt-4 p-4 border rounded shadow-md bg-white dark:bg-gray-800">
-              <WeatherDisplay />
+            {/* Tabs */}
+            <div className="mt-4 flex border-b border-gray-200 dark:border-gray-700">
+              <button
+                className={`py-2 px-4 font-medium ${
+                  activeTab === 'weather'
+                    ? 'text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400'
+                    : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
+                }`}
+                onClick={() => setActiveTab('weather')}
+              >
+                Current Weather
+              </button>
+              <button
+                className={`py-2 px-4 font-medium ${
+                  activeTab === 'forecast'
+                    ? 'text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400'
+                    : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
+                }`}
+                onClick={() => setActiveTab('forecast')}
+              >
+                Forecast
+              </button>
             </div>
 
-            {/* Location Search */}
-            <div className="mt-4 p-4 border rounded shadow-md bg-white dark:bg-gray-800">
-              <h2 className="text-xl font-semibold mb-2">Search Location</h2>
-              <LocationSearch />
-            </div>
+            {/* Tab Content */}
+            {activeTab === 'weather' ? (
+              <>
+                {/* Weather Display Area */}
+                <div className="mt-4 p-4 border rounded shadow-md bg-white dark:bg-gray-800">
+                  <WeatherDisplay />
+                </div>
 
-            {/* Map Area */}
-            <div className="mt-4 p-4 border rounded shadow-md bg-white dark:bg-gray-800" style={{ height: '400px' }}>
-              <Map onLocationSelect={handleLocationSelect} />
-            </div>
+                {/* Location Search */}
+                <div className="mt-4 p-4 border rounded shadow-md bg-white dark:bg-gray-800">
+                  <h2 className="text-xl font-semibold mb-2">Search Location</h2>
+                  <LocationSearch />
+                </div>
 
-            {/* Favorites Area */}
-            <div className="mt-4 p-4 border rounded shadow-md bg-white dark:bg-gray-800">
-              <Favorites />
-            </div>
+                {/* Map Area */}
+                <div className="mt-4 p-4 border rounded shadow-md bg-white dark:bg-gray-800" style={{ height: '400px' }}>
+                  <Map onLocationSelect={handleLocationSelect} />
+                </div>
+
+                {/* Favorites Area */}
+                <div className="mt-4 p-4 border rounded shadow-md bg-white dark:bg-gray-800">
+                  <Favorites />
+                </div>
+              </>
+            ) : (
+              <div className="mt-4 p-4 border rounded shadow-md bg-white dark:bg-gray-800">
+                <Forecast />
+              </div>
+            )}
 
             {/* Debug Log Component */}
             <div className="mt-4">

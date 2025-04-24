@@ -16,6 +16,7 @@ export interface WeatherXMStation {
   icon: string;
   timestamp: string;
   lastDayQod: number;  // Quality of Data metric
+  cell_index: string;  // Cell index for forecast API
 }
 
 interface WeatherXMResponse {
@@ -254,5 +255,51 @@ export const getLocationName = async (location: Location): Promise<string> => {
   } catch (error) {
     console.error('Error getting location name:', error);
     return `${location.lat.toFixed(4)}, ${location.lng.toFixed(4)}`;
+  }
+};
+
+// Function to fetch forecast data for a specific cell
+export const fetchForecast = async (cellIndex: string): Promise<any[]> => {
+  const { apiKey } = useSettingsStore.getState();
+  
+  if (!apiKey) {
+    throw new Error('API key is required');
+  }
+
+  try {
+    const url = `https://pro.weatherxm.com/api/v1/cells/${cellIndex}/forecast`;
+    
+    // Log the API call to the debug log
+    logApiCall('GET', url);
+    
+    const startTime = performance.now();
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-API-Key': apiKey,
+      },
+    });
+    const endTime = performance.now();
+    
+    // Update the log with status and duration
+    if (typeof window !== 'undefined' && (window as any).addDebugLog) {
+      (window as any).addDebugLog({
+        method: 'GET',
+        url,
+        status: response.status,
+        duration: endTime - startTime
+      });
+    }
+    
+    if (!response.ok) {
+      throw new Error(`Failed to fetch forecast: ${response.status} ${response.statusText}`);
+    }
+    
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching forecast:', error);
+    throw error;
   }
 }; 
