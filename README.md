@@ -10,6 +10,11 @@ A Progressive Web Application for accessing WeatherXM Pro weather data.
 - View weather stations on an interactive map
 - Responsive design for mobile and desktop
 
+## Live Demo
+
+The application is deployed on GitHub Pages and can be accessed at:
+[https://ipanagiv.github.io/weatherxm-pro-pwa/](https://ipanagiv.github.io/weatherxm-pro-pwa/)
+
 ## Getting Started
 
 ### Prerequisites
@@ -21,7 +26,7 @@ A Progressive Web Application for accessing WeatherXM Pro weather data.
 
 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/weatherxm-pro-pwa.git
+git clone https://github.com/ipanagiv/weatherxm-pro-pwa.git
 cd weatherxm-pro-pwa
 ```
 
