@@ -24,10 +24,13 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 p-4">
       <header className="mb-4 flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-blue-600 dark:text-blue-400">
-          WeatherXM Pro
+        <div className="w-1/4"></div>
+        <h1 className="text-3xl font-bold text-blue-600 dark:text-blue-400 text-center w-1/2">
+          WeatherXM Pro API
         </h1>
-        {apiKey && <BurgerMenu />}
+        <div className="w-1/4 flex justify-end">
+          {apiKey && <BurgerMenu />}
+        </div>
       </header>
 
       <main>
@@ -39,7 +42,7 @@ function App() {
           <div className="flex flex-col items-center justify-center min-h-[70vh]">
             <div className="w-full max-w-md">
               <div className="text-center mb-6">
-                <h2 className="text-2xl font-semibold mb-2">Welcome to WeatherXM Pro</h2>
+                <h2 className="text-2xl font-semibold mb-2">Welcome to WeatherXM Pro API</h2>
                 <p className="text-gray-600 dark:text-gray-400">
                   Please enter your WeatherXM Pro API key to get started.
                 </p>

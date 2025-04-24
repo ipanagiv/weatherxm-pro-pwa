@@ -1,5 +1,5 @@
 {
-  "name": "WeatherXM Pro",
+  "name": "WeatherXM Pro API",
   "short_name": "WeatherXM",
   "description": "Weather data from WeatherXM Pro stations",
   "start_url": "/",
