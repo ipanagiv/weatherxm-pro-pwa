@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useWeatherStore } from '../store/weatherStore';
-import { getLocationName } from '../services/weatherService';
 
 interface SearchResult {
   display_name: string;
@@ -99,7 +98,7 @@ export const LocationSearch: React.FC = () => {
               >
                 <div className="font-medium">{result.display_name.split(',')[0]}</div>
                 <div className="text-sm text-gray-500 dark:text-gray-400">
-                  {result.display_name}
+                  {result.display_name.split(',').slice(1).join(',').trim()}
                 </div>
               </div>
             ))}

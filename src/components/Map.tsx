@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, useMapEvents, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import './Map.css'; // Import our custom CSS
@@ -42,7 +42,7 @@ function LocationMarker({ onLocationSelect }: { onLocationSelect: (lat: number, 
     }
   }, [selectedLocation]);
   
-  const map = useMapEvents({
+  useMapEvents({
     click(e) {
       setPosition(e.latlng);
       onLocationSelect(e.latlng.lat, e.latlng.lng);
