@@ -1,0 +1,30 @@
+/* Map container styles */
+.map-container {
+  height: 100%;
+  width: 100%;
+  min-height: 300px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Fix for Leaflet map in React */
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+  min-height: 300px;
+}
+
+/* Ensure map controls are visible */
+.leaflet-control-container {
+  z-index: 2;
+}
+
+/* Fix for map tiles loading */
+.leaflet-tile-pane {
+  z-index: 1;
+}
+
+/* Fix for marker icons */
+.leaflet-marker-icon {
+  z-index: 2;
+} 
