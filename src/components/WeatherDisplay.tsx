@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useWeatherStore } from '../store/weatherStore';
 import { fetchWeatherData, fetchStations, WeatherXMStation } from '../services/weatherService';
 import { useSettingsStore } from '../store/settingsStore';
-import { calculateDistance } from '../types/weather';
 
 const WeatherDisplay: React.FC = () => {
   const { 
