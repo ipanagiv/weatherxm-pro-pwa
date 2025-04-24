@@ -61,9 +61,9 @@ export const fetchStations = async (location: Location): Promise<WeatherXMStatio
   }
 
   try {
-    // Calculate bounds around the location (approximately 5km radius)
-    const latOffset = 0.05; // roughly 5km
-    const lonOffset = 0.05; // roughly 5km at this latitude
+    // Calculate bounds around the location (approximately 30km radius)
+    const latOffset = 0.3; // roughly 30km
+    const lonOffset = 0.3; // roughly 30km at this latitude
     
     const minLat = location.lat - latOffset;
     const maxLat = location.lat + latOffset;
